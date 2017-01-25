@@ -1,7 +1,6 @@
-var app = angular.module('FlyEasy Dashboard', ['ngMaterial']);
+var app = angular.module('FlyEasy Dashboard', ['ngMaterial', 'mdDataTable']);
 
-app.controller('MainCtrl', function($scope){
-	$scope.test = 'Hello world!';
+app.controller('MainCtrl', function($scope, $mdToast){
 
 	$scope.posts = [
 		{title: 'post 1', upvotes: 5},
@@ -10,6 +9,8 @@ app.controller('MainCtrl', function($scope){
 		{title: 'post 4', upvotes: 9},
 		{title: 'post 5', upvotes: 4}
 	];
+
+	$scope.categories = ['Light', 'Heavy'];
 
 	$scope.addPost = function(){
 		if(!$scope.title || $scope.title === '') { return; }

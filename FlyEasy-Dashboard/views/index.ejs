@@ -3,41 +3,89 @@
     <title>My Angular App!</title>
 
     <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+    <link rel="stylesheet" href="/modules/md-data-table/md-data-table-style.css">
     
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular-sanitize.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.7.1/angular-material-icons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+
+    <script src="/modules/md-data-table/md-data-table-templates.js"></script>
+    <script src="/modules/md-data-table/md-data-table.js"></script>
 
     <script src="/javascripts/angularApp.js"></script>
   </head>
+
   <body ng-app="FlyEasy Dashboard" ng-controller="MainCtrl">
-  <md-content>
   	<md-toolbar md-scroll-shrink="false">
   		<h2><span>FlyEasy Dashboard</span></h2>
   	</md-toolbar>
-  	<md-tabs md-border-bottom md-center-tabs="true">
+  	<md-tabs md-border-bottom layout-fill md-center-tabs="true">
   		<md-tab label="Fleet Editor">
+  			<md-content class="md-padding">
+	  			<mdt-table save-row-callback="saveRowCallback(row)">
+				    <mdt-header-row>
+				      <mdt-column align-rule="left">Aircraft Name</mdt-column>
+				      <mdt-column align-rule="center">Category</mdt-column>
+				      <mdt-column align-rule="center">Number of Seats</mdt-column>
+				      <mdt-column align-rule="center">Price per Hour</mdt-column>
+				      <mdt-column align-rule="center">Airport</mdt-column>
+				      <mdt-column align-rule="center">Action</mdt-column>
+				    </mdt-header-row>
+				    <mdt-row>
+				    	<mdt-cell html-content="true">
+					    	<md-input-container md-no-float class="md-block">
+					    		<label>Aircraft Name</label>
+					        	<input ng-model="newAircraft.name">
+				        	</md-input-container>
+				        </mdt-cell>
+				        <mdt-cell html-content="true">
+					    	<md-input-container md-no-float class="md-block" style="top: -12px;">
+					    		<label>Category</label>
+					        	<md-select ng-model="newAircraft.category" aria-label="Category">
+	        			            <md-option value="light">Light</md-option>
+	    							<md-option value="heavy">Heavy</md-option>
+					        	</md-select>
+				        	</md-input-container>
+				        </mdt-cell>
+				    	<mdt-cell html-content="true">
+				    		<md-input-container md-no-float class="md-block" style="width: 100px">
+				    			<label>Seats</label>
+				    			<input type="number" name="seats" ng-model="newAircraft.seats">
+				    		</md-input-container>
+				    	</mdt-cell>
+				    	<mdt-cell html-content="true">
+				    		<md-input-container md-no-float class="md-icon-float md-block" style="width: 100px">
+				    			<label>Price</label>
+				    			<md-icon md-svg-src="images/money.svg"></md-icon>
+				    			<input type="number" step="0.01" ng-model="newAircraft.price" aria-label="dollar">
+				    		</md-input-container>
+				    	</mdt-cell>
+				    	<mdt-cell html-content="true">
+					    	<md-input-container md-no-float class="md-block">
+					    	<label>Airport</label>
+					        	<input ng-model="newAircraft.airport">
+				        	</md-input-container>
+				    	</mdt-cell>
+				    	<mdt-cell html-content="true"><md-button class="md-raised md-primary">Add</md-button></mdt-cell>
+				    </mdt-row>
+				    <mdt-row ng-repeat="post in posts">
+				      <mdt-cell html-content="true">{{post.title}}</mdt-cell>
+				      <mdt-cell html-content="true">{{post.upvotes}}</mdt-cell>
+				      <mdt-cell html-content="true">{{post.upvotes}}</mdt-cell>
+				      <mdt-cell html-content="true">{{post.upvotes}}</mdt-cell>
+				      <mdt-cell html-content="true">{{post.upvotes}}</mdt-cell>
+				      <mdt-cell html-content="true"><md-button>Edit</md-button><md-button class="md-warn">Delete</md-button></mdt-cell>
+				    </mdt-row>
+			  	</mdt-table>
+  			</md-content>
   		</md-tab>
   		<md-tab label="Flight Editor">
   		</md-tab>
   	</md-tabs>
-  </md-content>
-
-    <div>
-      <div ng-repeat="post in posts | orderBy: '-upvotes'">
-        <span ng-click="incrementUpvotes(post)">^</span>
-        <a ng-show="post.link" href="{{post.link}}">{{post.title}}</a>
-        <span ng-hide="post.link">{{post.title}}</span> - upvotes: {{post.upvotes}}
-      </div>
-      <form ng-submit="addPost()">
-        <input type="text" placeholder="Title" ng-model="title"></input>
-        <br>
-        <input type="text" placeholder="Link" ng-model="link"></input>
-        <br>
-        <md-button class="md-raised md-primary" type="submit">Post</md-button>
-      </form>
-    </div>
   </body>
 </html>
