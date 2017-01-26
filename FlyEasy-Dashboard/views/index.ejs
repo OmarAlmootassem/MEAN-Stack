@@ -29,13 +29,21 @@
   			<md-content class="md-padding">
 	  			<mdt-table save-row-callback="saveRowCallback(row)">
 				    <mdt-header-row>
-				      <mdt-column align-rule="left">Aircraft Name</mdt-column>
-				      <mdt-column align-rule="center">Category</mdt-column>
-				      <mdt-column align-rule="center">Number of Seats</mdt-column>
-				      <mdt-column align-rule="center">Price per Hour</mdt-column>
-				      <mdt-column align-rule="center">Airport</mdt-column>
-				      <mdt-column align-rule="center">Action</mdt-column>
+						<mdt-column align-rule="left">Aircraft Name</mdt-column>
+						<mdt-column align-rule="center">Category</mdt-column>
+						<mdt-column align-rule="center">Number of Seats</mdt-column>
+						<mdt-column align-rule="center">Price per Hour</mdt-column>
+						<mdt-column align-rule="center">Airport</mdt-column>
+						<mdt-column align-rule="center">Action</mdt-column>
 				    </mdt-header-row>
+				    <mdt-row ng-repeat="plane in fleet">
+						<mdt-cell html-content="true">{{plane.name}}</mdt-cell>
+						<mdt-cell html-content="true">{{plane.category}}</mdt-cell>
+						<mdt-cell html-content="true">{{plane.numSeats}}</mdt-cell>
+						<mdt-cell html-content="true">{{plane.pricePerHour}}</mdt-cell>
+						<mdt-cell html-content="true">{{plane.airport}}</mdt-cell>
+						<mdt-cell html-content="true"><md-button>Edit</md-button><md-button class="md-warn">Delete</md-button></mdt-cell>
+				    </mdt-row>
 				    <mdt-row>
 				    	<mdt-cell html-content="true">
 					    	<md-input-container md-no-float class="md-block">
@@ -71,15 +79,7 @@
 					        	<input ng-model="newAircraft.airport">
 				        	</md-input-container>
 				    	</mdt-cell>
-				    	<mdt-cell html-content="true"><md-button class="md-raised md-primary">Add</md-button></mdt-cell>
-				    </mdt-row>
-				    <mdt-row ng-repeat="post in posts">
-				      <mdt-cell html-content="true">{{post.title}}</mdt-cell>
-				      <mdt-cell html-content="true">{{post.upvotes}}</mdt-cell>
-				      <mdt-cell html-content="true">{{post.upvotes}}</mdt-cell>
-				      <mdt-cell html-content="true">{{post.upvotes}}</mdt-cell>
-				      <mdt-cell html-content="true">{{post.upvotes}}</mdt-cell>
-				      <mdt-cell html-content="true"><md-button>Edit</md-button><md-button class="md-warn">Delete</md-button></mdt-cell>
+				    	<mdt-cell html-content="true"><md-button ng-click="addNewAircraft()" ng-disabled="!newAircraft.name || !newAircraft.category || !newAircraft.seats || !newAircraft.price || !newAircraft.airport" class="md-raised md-primary">Add</md-button></mdt-cell>
 				    </mdt-row>
 			  	</mdt-table>
   			</md-content>

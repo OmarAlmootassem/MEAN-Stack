@@ -27,4 +27,16 @@ router.post('/fleet', function(req, res, next){
 	});
 });
 
+router.param('plane', function(req, res, next, id){
+	var query = Plane.findById(id);
+
+	query.exec(function(err, plane){
+		if (err) return next(err);
+		if (!plane) return next(new Error("Can't find plane"));
+
+		req.plane = plane;
+		return next();
+	});
+});
+
 module.exports = router;
