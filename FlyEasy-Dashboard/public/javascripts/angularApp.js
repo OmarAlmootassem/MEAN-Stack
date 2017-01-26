@@ -34,6 +34,7 @@ app.factory('fleet', function($http){
 	}
 
 	o.create = function(plane){
+		console.log(plane);
 		return $http.post('/fleet', plane)
 			.success(function(data){
 				o.fleet.push(data);
