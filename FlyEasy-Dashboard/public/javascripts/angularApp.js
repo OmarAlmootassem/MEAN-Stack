@@ -25,6 +25,26 @@ app.controller('MainCtrl', function($scope, fleet, $mdDialog){
 			});
 	}
 
+	$scope.editAircraft = function(ev, plane, field){
+		console.log(field);
+
+		var edit = $mdDialog.prompt()
+			.title("Edit " + field)
+			.initialValue(plane[field])
+			.ariaLabel("Aircraft Info")
+			.ok("Save")
+			.cancel("Cancel");
+
+		$mdDialog.show(edit).then(function(result){
+			plane[field] = result;
+			console.log(plane);
+			fleet.update(plane)
+				.success(function(response){
+					console.log(response);
+				})
+		});
+	};
+
 	$scope.deleteAircraft = function(plane, index){
 		var confirm = $mdDialog.confirm()
 			.title("Are you Sure?")
@@ -64,6 +84,13 @@ app.factory('fleet', function($http){
 
 	o.remove = function(plane){
 		return $http.delete('/fleet/' + plane._id);
+	}
+
+	o.update = function(plane){
+		return $http.post('/fleet/' + plane._id, plane)
+			.success(function(data){
+				
+			});
 	}
 
 	return o;

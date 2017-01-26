@@ -12,7 +12,6 @@ router.get('/', function(req, res, next) {
 router.get('/fleet', function(req, res){
 	Plane.find(function(err, data){
 		if (err) throw err;
-
 		res.json(data);
 	});
 });
@@ -20,7 +19,6 @@ router.get('/fleet', function(req, res){
 router.get('/fleet/:id', function(req, res){
 	Plane.findOne({_id: req.params.id}, function(err, data){
 		if (err) throw err;
-
 		res.json(data);
 	});
 });
@@ -30,7 +28,6 @@ router.post('/fleet', function(req, res, next){
 
 	plane.save(function(err, plane){
 		if (err) throw err;
-
 		res.json(plane);
 	});
 });
@@ -38,6 +35,16 @@ router.post('/fleet', function(req, res, next){
 router.delete('/fleet/:id', function(req, res){
 	Plane.remove({_id: req.params.id}, function(err){
 		res.json({result: err ? 'error' : 'ok'});
+	});
+});
+
+router.post('/fleet/:id', function(req, res){
+	Plane.findOne({_id: req.params.id}, function (err, data){
+		var plane = req.body;
+		plane.save(function(err, data){
+			if (err) throw err;
+			res.json(data);
+		});
 	});
 });
 

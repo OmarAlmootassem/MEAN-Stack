@@ -35,12 +35,12 @@
   				</thead>
   				<tbody>
   					<tr ng-repeat="plane in fleetList">
-  						<td>{{plane.name}}</td>
-  						<td>{{plane.category}}</td>
-  						<td>{{plane.numSeats}}</td>
-  						<td>${{plane.pricePerHour}}</td>
-  						<td>{{plane.airport}}</td>
-  						<td><md-button>Edit</md-button><md-button class="md-warn" ng-click="deleteAircraft(plane, $index)">Delete</md-button></td>
+  						<td ng-click="editAircraft($event, plane, 'name')">{{plane.name}}</td>
+  						<td ng-click="editAircraft($event, plane, 'category')">{{plane.category}}</td>
+  						<td ng-click="editAircraft($event, plane, 'numSeats')">{{plane.numSeats}}</td>
+  						<td ng-click="editAircraft($event, plane, 'pricePerHour')">${{plane.pricePerHour}}</td>
+  						<td ng-click="editAircraft($event, plane, 'airport')">{{plane.airport}}</td>
+  						<td><md-button class="md-warn" ng-click="deleteAircraft(plane, $index)">Delete</md-button></td>
   					</tr>
   					<tr>
   						<td>
