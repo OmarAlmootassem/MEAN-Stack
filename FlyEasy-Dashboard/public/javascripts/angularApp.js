@@ -1,6 +1,6 @@
 var app = angular.module('FlyEasy Dashboard', ['ngMaterial']);
 
-app.controller('MainCtrl', function($scope, fleet){
+app.controller('MainCtrl', function($scope, fleet, $mdDialog){
 
 	$scope.newAircraft = {};
 	$scope.fleetList = [];
@@ -25,27 +25,21 @@ app.controller('MainCtrl', function($scope, fleet){
 			});
 	}
 
-	$scope.deleteAircraft1 = function(plane, index){
-		// console.log(plane);
-		console.log("Deleting: " + index);
-		$scope.fleetList.splice(index, 1);
-		$scope.$applyAsync();
-		// console.log(index);
-		// fleet.remove(plane)
-		// 	.success(function(response){
-		// 		$scope.fleet.splice(index, 1);
-		// 		console.log($scope.fleet);
-		// 		$scope.$applyAsync();
-		// 	});
-	}
+	$scope.deleteAircraft = function(plane, index){
+		var confirm = $mdDialog.confirm()
+			.title("Are you Sure?")
+			.ariaLabel("Delete confirmation")
+			.ok("Delete")
+			.cancel("Cancel");
 
-	$scope.deleteAircraft = function(rows){
-		console.log(rows);
-
-		 fleet.remove(rows[0][0].attributes.editableField)
-		 .success(function(response){
-		 	console.log(response);
-		 });
+		$mdDialog.show(confirm).then(function(){
+			fleet.remove(plane)
+				.success(function(response){
+					console.log(response);
+					$scope.fleetList.splice(index, 1);
+				});
+		});
+		 
 	}
 });
 
@@ -69,10 +63,7 @@ app.factory('fleet', function($http){
 	}
 
 	o.remove = function(plane){
-		return $http.delete('/fleet/' + plane)
-			.success(function(data){
-				angular.copy(data, o.fleet);
-			});
+		return $http.delete('/fleet/' + plane._id);
 	}
 
 	return o;

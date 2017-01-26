@@ -24,7 +24,7 @@
   	<md-tabs md-border-bottom md-dynamic-height md-center-tabs="true">
   		<md-tab label="Fleet Editor">
   			<md-content class="md-padding">
-  			<table>
+  			<table class="highlight responsive-table">
   				<thead>
   					<th>Aircraft Name</th>
   					<th>Category</th>
@@ -38,9 +38,9 @@
   						<td>{{plane.name}}</td>
   						<td>{{plane.category}}</td>
   						<td>{{plane.numSeats}}</td>
-  						<td>{{plane.pricePerHour}}</td>
+  						<td>${{plane.pricePerHour}}</td>
   						<td>{{plane.airport}}</td>
-  						<td><md-button>Edit</md-button><md-button class="md-warn" ng-click="deleteAircraft1(plane, $index)">Delete</md-button></td>
+  						<td><md-button>Edit</md-button><md-button class="md-warn" ng-click="deleteAircraft(plane, $index)">Delete</md-button></td>
   					</tr>
   					<tr>
   						<td>

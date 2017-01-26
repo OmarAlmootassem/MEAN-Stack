@@ -6,14 +6,22 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+	res.render('index', { title: 'Express' });
 });
 
-router.get('/fleet', function(req, res, next){
-	Plane.find(function(err, fleet){
-		if (err) return next(err);
+router.get('/fleet', function(req, res){
+	Plane.find(function(err, data){
+		if (err) throw err;
 
-		res.json(fleet);
+		res.json(data);
+	});
+});
+
+router.get('/fleet/:id', function(req, res){
+	Plane.findOne({_id: req.params.id}, function(err, data){
+		if (err) throw err;
+
+		res.json(data);
 	});
 });
 
@@ -21,19 +29,15 @@ router.post('/fleet', function(req, res, next){
 	var plane  = new Plane(req.body);
 
 	plane.save(function(err, plane){
-		if (err) return next(err);
+		if (err) throw err;
 
 		res.json(plane);
 	});
 });
 
-router.delete('/fleet/:id', function(req, res, next){
-	var plane = new Plane(req.body)
-
-	plane.remove(function(err){
-		if (err) return next(err);
-
-		return res.sendStatus(204);
+router.delete('/fleet/:id', function(req, res){
+	Plane.remove({_id: req.params.id}, function(err){
+		res.json({result: err ? 'error' : 'ok'});
 	});
 });
 
