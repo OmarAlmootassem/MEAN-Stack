@@ -1,9 +1,9 @@
 <html>
   <head>
-    <title>My Angular App!</title>
+    <title>FlyEasy Dashboard</title>
 
     <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
-    <link rel="stylesheet" href="/modules/md-data-table/md-data-table-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
     
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
@@ -14,9 +14,6 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.7.1/angular-material-icons.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
 
-    <script src="/modules/md-data-table/md-data-table-templates.js"></script>
-    <script src="/modules/md-data-table/md-data-table.js"></script>
-
     <script src="/javascripts/angularApp.js"></script>
   </head>
 
@@ -24,64 +21,68 @@
   	<md-toolbar md-scroll-shrink="false">
   		<h2><span>FlyEasy Dashboard</span></h2>
   	</md-toolbar>
-  	<md-tabs md-border-bottom layout-fill md-center-tabs="true">
+  	<md-tabs md-border-bottom md-dynamic-height md-center-tabs="true">
   		<md-tab label="Fleet Editor">
   			<md-content class="md-padding">
-	  			<mdt-table save-row-callback="saveRowCallback(row)">
-				    <mdt-header-row>
-						<mdt-column align-rule="left">Aircraft Name</mdt-column>
-						<mdt-column align-rule="center">Category</mdt-column>
-						<mdt-column align-rule="center">Number of Seats</mdt-column>
-						<mdt-column align-rule="center">Price per Hour</mdt-column>
-						<mdt-column align-rule="center">Airport</mdt-column>
-						<mdt-column align-rule="center">Action</mdt-column>
-				    </mdt-header-row>
-				    <mdt-row ng-repeat="plane in fleet">
-						<mdt-cell html-content="true">{{plane.name}}</mdt-cell>
-						<mdt-cell html-content="true">{{plane.category}}</mdt-cell>
-						<mdt-cell html-content="true">{{plane.numSeats}}</mdt-cell>
-						<mdt-cell html-content="true">{{plane.pricePerHour}}</mdt-cell>
-						<mdt-cell html-content="true">{{plane.airport}}</mdt-cell>
-						<mdt-cell html-content="true"><md-button>Edit</md-button><md-button class="md-warn">Delete</md-button></mdt-cell>
-				    </mdt-row>
-				    <mdt-row>
-				    	<mdt-cell html-content="true">
-					    	<md-input-container md-no-float class="md-block">
+  			<table>
+  				<thead>
+  					<th>Aircraft Name</th>
+  					<th>Category</th>
+  					<th>Number of Seats</th>
+  					<th>Price per Hour</th>
+  					<th>Airport</th>
+  					<th>Action</th>
+  				</thead>
+  				<tbody>
+  					<tr ng-repeat="plane in fleetList">
+  						<td>{{plane.name}}</td>
+  						<td>{{plane.category}}</td>
+  						<td>{{plane.numSeats}}</td>
+  						<td>{{plane.pricePerHour}}</td>
+  						<td>{{plane.airport}}</td>
+  						<td><md-button>Edit</md-button><md-button class="md-warn" ng-click="deleteAircraft1(plane, $index)">Delete</md-button></td>
+  					</tr>
+  					<tr>
+  						<td>
+  							<md-input-container md-no-float class="md-block">
 					    		<label>Aircraft Name</label>
 					        	<input ng-model="newAircraft.name">
 				        	</md-input-container>
-				        </mdt-cell>
-				        <mdt-cell html-content="true">
-					    	<md-input-container md-no-float class="md-block" style="top: -12px;">
+  						</td>
+  						<td>
+  							<md-input-container md-no-float class="md-block" style="top: -12px;">
 					    		<label>Category</label>
 					        	<md-select ng-model="newAircraft.category" aria-label="Category">
 	        			            <md-option value="Light Jet">Light Jet</md-option>
 	    							<md-option value="Heavy Jet">Heavy Jet</md-option>
 					        	</md-select>
 				        	</md-input-container>
-				        </mdt-cell>
-				    	<mdt-cell html-content="true">
-				    		<md-input-container md-no-float class="md-block" style="width: 100px">
+  						</td>
+  						<td>
+  							<md-input-container md-no-float class="md-block" style="width: 100px">
 				    			<label>Seats</label>
 				    			<input type="number" min="0" name="seats" ng-model="newAircraft.numSeats">
 				    		</md-input-container>
-				    	</mdt-cell>
-				    	<mdt-cell html-content="true">
-				    		<md-input-container md-no-float class="md-icon-float md-block" style="width: 100px">
+  						</td>
+  						<td>
+  							<md-input-container md-no-float class="md-icon-float md-block" style="width: 100px">
 				    			<label>Price</label>
 				    			<md-icon md-svg-src="images/money.svg"></md-icon>
 				    			<input type="number" min="0" step="0.01" ng-model="newAircraft.pricePerHour" aria-label="dollar">
 				    		</md-input-container>
-				    	</mdt-cell>
-				    	<mdt-cell html-content="true">
-					    	<md-input-container md-no-float class="md-block">
+  						</td>
+  						<td>
+  							<md-input-container md-no-float class="md-block">
 					    	<label>Airport</label>
 					        	<input ng-model="newAircraft.airport">
 				        	</md-input-container>
-				    	</mdt-cell>
-				    	<mdt-cell html-content="true"><md-button ng-click="addNewAircraft()" ng-disabled="!newAircraft.name || !newAircraft.category || !newAircraft.numSeats || !newAircraft.pricePerHour || !newAircraft.airport" class="md-raised md-primary">Add</md-button></mdt-cell>
-				    </mdt-row>
-			  	</mdt-table>
+  						</td>
+  						<td>
+  							<md-button ng-click="addNewAircraft()" ng-disabled="!newAircraft.name || !newAircraft.category || !newAircraft.numSeats || !newAircraft.pricePerHour || !newAircraft.airport" class="md-raised md-primary">Add</md-button>
+  						</td>
+  					</tr>
+  				</tbody>
+  			</table>
   			</md-content>
   		</md-tab>
   		<md-tab label="Flight Editor">

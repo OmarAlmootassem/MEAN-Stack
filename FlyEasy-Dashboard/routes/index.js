@@ -27,6 +27,16 @@ router.post('/fleet', function(req, res, next){
 	});
 });
 
+router.delete('/fleet/:id', function(req, res, next){
+	var plane = new Plane(req.body)
+
+	plane.remove(function(err){
+		if (err) return next(err);
+
+		return res.sendStatus(204);
+	});
+});
+
 router.param('plane', function(req, res, next, id){
 	var query = Plane.findById(id);
 
