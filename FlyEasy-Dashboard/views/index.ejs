@@ -13,6 +13,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.7.1/angular-material-icons.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
 
+    <script src="/libraries/moment.min.js"></script>
     <script src="/javascripts/angularApp.js"></script>
   </head>
 
@@ -97,8 +98,8 @@
 	  				</thead>
 	  				<tbody>
 	  					<tr ng-repeat="flight in flightList">
-	  						<td aria-label="Aircraft Name" ng-click="editAircraft($event, flight, 'airplane')">{{flight.airplane}}</td>
-	  						<td ng-click="editFlight($event, flight, 'departureDate')">{{flight.departureDate}}</td>
+	  						<td aria-label="Aircraft Name" ng-click="editAircraft($event, flight, 'airplane')">{{flight.airplane_name}}</td>
+	  						<td ng-click="editFlight($event, flight, 'departureDate')">{{flight.departureDate_formatted}}</td>
 	  						<td ng-click="editFlight($event, flight, 'departureAirport')">{{flight.departureAirport}}</td>
 	  						<td ng-click="editFlight($event, flight, 'arrivalAirport')">{{flight.arrivalAirport}}</td>
 	  						<td ng-click="editFlight($event, flight, 'price')">${{flight.price}}</td>

@@ -17,6 +17,12 @@ app.controller('MainCtrl', function($scope, fleet, flights, $mdDialog, $mdToast)
 	flights.getAll()
 		.success(function(response){
 			for (var i = 0; i < response.length; i++){
+				response[i].departureDate_formatted = moment(response[i].departureDate).format('MMMM Do YYYY');
+				for (var j = 0; j < $scope.fleetList.length; j++){
+					if ($scope.fleetList[j]._id == response[i].airplane){
+						response[i].airplane_name = $scope.fleetList[j].name;
+					}
+				}
 				$scope.flightList.push(response[i]);
 			}
 		});
@@ -177,6 +183,12 @@ app.controller('MainCtrl', function($scope, fleet, flights, $mdDialog, $mdToast)
 		flights.create($scope.newFlight)
 			.success(function(response){
 				console.log(response);
+				response.departureDate_formatted = moment(response.departureDate).format('MMMM Do YYYY');
+				for (var j = 0; j < $scope.fleetList.length; j++){
+					if ($scope.fleetList[j]._id == response.airplane){
+						response.airplane_name = $scope.fleetList[j].name;
+					}
+				}
 				$scope.flightList.push(response);
 				$scope.newFlight = {};
 			});
@@ -190,6 +202,13 @@ app.factory('fleet', function($http){
 
 	o.getAll = function(){
 		return $http.get('/fleet')
+			.success(function(data){
+				angular.copy(data, o.fleet);
+			});
+	}
+
+	o.get = function(planeId){
+		return $http.get('/fleet/' + planeId)
 			.success(function(data){
 				angular.copy(data, o.fleet);
 			});
