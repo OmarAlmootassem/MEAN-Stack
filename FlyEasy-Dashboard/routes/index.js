@@ -53,6 +53,50 @@ router.post('/fleet/:id', function(req, res){
 	});
 });
 
+router.get('/flights', function(req, res){
+	Flight.find(function(err, data){
+		if (err) throw err;
+		res.json(data);
+	});
+});
+
+router.get('/flights/:id', function(req, res){
+	Flight.findOne({_id: req.params.id}, function(err, data){
+		if (err) throw err;
+		res.json(data);
+	});
+});
+
+router.post('/flights', function(req, res, next){
+	var flight  = new Flight(req.body);
+
+	flight.save(function(err, flight){
+		if (err) throw err;
+		res.json(flight);
+	});
+});
+
+router.delete('/flights/:id', function(req, res){
+	Flight.remove({_id: req.params.id}, function(err){
+		res.json({result: err ? 'error' : 'ok'});
+	});
+});
+
+router.post('/flights/:id', function(req, res){
+	Flight.findOne({_id: req.params.id}, function (err, data){
+		var flight = data;
+		flight.airplane = req.body.airplane;
+		flight.departureDate = req.body.departureDate;
+		flight.departureAirport = req.body.departureAirport;
+		flight.arrivalAirport = req.body.arrivalAirport;
+		flight.price = req.body.price;
+		flight.save(function(err, data){
+			if (err) throw err;
+			res.json(data);
+		});
+	});
+});
+
 router.param('plane', function(req, res, next, id){
 	var query = Plane.findById(id);
 

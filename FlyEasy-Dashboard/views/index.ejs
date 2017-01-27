@@ -100,8 +100,8 @@
 	  						<td aria-label="Aircraft Name" ng-click="editAircraft($event, flight, 'airplane')">{{flight.airplane}}</td>
 	  						<td ng-click="editFlight($event, flight, 'departureDate')">{{flight.departureDate}}</td>
 	  						<td ng-click="editFlight($event, flight, 'departureAirport')">{{flight.departureAirport}}</td>
-	  						<td ng-click="editFlight($event, flight, 'arrivalAirport')">${{flight.arrivalAirport}}</td>
-	  						<td ng-click="editFlight($event, flight, 'price')">{{flight.price}}</td>
+	  						<td ng-click="editFlight($event, flight, 'arrivalAirport')">{{flight.arrivalAirport}}</td>
+	  						<td ng-click="editFlight($event, flight, 'price')">${{flight.price}}</td>
 	  						<td style="text-align: center;"><md-button class="md-warn" ng-click="deleteFlight(flight, $index)">Delete</md-button></td>
 	  					</tr>
 	  					<tr>
@@ -109,7 +109,7 @@
 								<md-input-container md-no-float class="md-block" style="top: -12px;">
 						    		<label>Airplane Name</label>
 						        	<md-select ng-model="newFlight.airplane" aria-label="Category">
-		        			            <md-option ng-repeat="plane in fleetList" ng-value="plane.name">{{plane.name}}</md-option>
+		        			            <md-option ng-repeat="plane in fleetList" ng-value="plane._id">{{plane.name}}</md-option>
 						        	</md-select>
 					        	</md-input-container>
 	  						</td>
