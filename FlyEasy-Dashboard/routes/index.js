@@ -40,7 +40,12 @@ router.delete('/fleet/:id', function(req, res){
 
 router.post('/fleet/:id', function(req, res){
 	Plane.findOne({_id: req.params.id}, function (err, data){
-		var plane = req.body;
+		var plane = data;
+		plane.name = req.body.name;
+		plane.airport = req.body.airport;
+		plane.category = req.body.category;
+		plane.numSeats = req.body.numSeats;
+		plane.pricePerHour = req.body.pricePerHour;
 		plane.save(function(err, data){
 			if (err) throw err;
 			res.json(data);

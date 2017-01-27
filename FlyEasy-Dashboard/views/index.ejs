@@ -35,7 +35,7 @@
   				</thead>
   				<tbody>
   					<tr ng-repeat="plane in fleetList">
-  						<td ng-click="editAircraft($event, plane, 'name')">{{plane.name}}</td>
+  						<td aria-label="Aircraft Name" ng-click="editAircraft($event, plane, 'name')">{{plane.name}}</td>
   						<td ng-click="editAircraft($event, plane, 'category')">{{plane.category}}</td>
   						<td ng-click="editAircraft($event, plane, 'numSeats')">{{plane.numSeats}}</td>
   						<td ng-click="editAircraft($event, plane, 'pricePerHour')">${{plane.pricePerHour}}</td>
@@ -53,8 +53,8 @@
   							<md-input-container md-no-float class="md-block" style="top: -12px;">
 					    		<label>Category</label>
 					        	<md-select ng-model="newAircraft.category" aria-label="Category">
-	        			            <md-option value="Light Jet">Light Jet</md-option>
-	    							<md-option value="Heavy Jet">Heavy Jet</md-option>
+	        			            <md-option value="Heavy Jet">Heavy Jet</md-option>
+	    							<md-option value="Light Jet">Light Jet</md-option>
 					        	</md-select>
 				        	</md-input-container>
   						</td>

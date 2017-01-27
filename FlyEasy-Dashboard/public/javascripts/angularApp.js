@@ -1,6 +1,6 @@
 var app = angular.module('FlyEasy Dashboard', ['ngMaterial']);
 
-app.controller('MainCtrl', function($scope, fleet, $mdDialog){
+app.controller('MainCtrl', function($scope, fleet, $mdDialog, $mdToast){
 
 	$scope.newAircraft = {};
 	$scope.fleetList = [];
@@ -28,22 +28,56 @@ app.controller('MainCtrl', function($scope, fleet, $mdDialog){
 	$scope.editAircraft = function(ev, plane, field){
 		console.log(field);
 
-		var edit = $mdDialog.prompt()
-			.title("Edit " + field)
-			.initialValue(plane[field])
-			.ariaLabel("Aircraft Info")
-			.ok("Save")
-			.cancel("Cancel");
+		if (field == "name" || field == "airport"){
+			$mdDialog.show({
+				locals: {field: field, plane: plane},
+				clickOutsideToClose: true,
+				templateUrl: 'templates/dialogs/dialog-text.ejs',
+				controller: mdDialogCtrl
+			});
+		} else if (field == "category"){
+			$mdDialog.show({
+				locals: {field: field, plane: plane},
+				clickOutsideToClose: true,
+				templateUrl: 'templates/dialogs/dialog-select.ejs',
+				controller: mdDialogCtrl
+			});
+		} else if (field == "numSeats"){
+			$mdDialog.show({
+				locals: {field: field, plane: plane},
+				clickOutsideToClose: true,
+				templateUrl: 'templates/dialogs/dialog-num.ejs',
+				controller: mdDialogCtrl
+			});
+		} else if (field == "pricePerHour"){
+			$mdDialog.show({
+				locals: {field: field, plane: plane},
+				clickOutsideToClose: true,
+				templateUrl: 'templates/dialogs/dialog-dec.ejs',
+				controller: mdDialogCtrl
+			});
+		}
+	};
 
-		$mdDialog.show(edit).then(function(result){
-			plane[field] = result;
-			console.log(plane);
-			fleet.update(plane)
+	var mdDialogCtrl = function($scope, field, plane){
+		$scope.field = field;
+		$scope.plane = plane;
+		$scope.info = plane[field];
+
+		$scope.saveInfo = function(){
+			console.log($scope.plane);
+			plane[field] = $scope.info;
+			fleet.update($scope.plane)
 				.success(function(response){
 					console.log(response);
-				})
-		});
-	};
+					$mdDialog.cancel();
+				});
+		}
+
+		$scope.cancel = function(){
+			$mdDialog.cancel();
+		}
+	}
 
 	$scope.deleteAircraft = function(plane, index){
 		var confirm = $mdDialog.confirm()
@@ -89,7 +123,7 @@ app.factory('fleet', function($http){
 	o.update = function(plane){
 		return $http.post('/fleet/' + plane._id, plane)
 			.success(function(data){
-				
+
 			});
 	}
 
