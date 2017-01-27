@@ -1,4 +1,4 @@
-var app = angular.module('FlyEasy Dashboard', ['ngMaterial']);
+var app = angular.module('FlyEasy Dashboard', ['ngMaterial', 'ngMessages']);
 
 app.controller('MainCtrl', function($scope, fleet, flights, $mdDialog, $mdToast){
 
@@ -91,14 +91,22 @@ app.controller('MainCtrl', function($scope, fleet, flights, $mdDialog, $mdToast)
 		}
 	}
 
-	var mdFlightDialogCtrl = function($scope, field, flight){
+	var mdFlightDialogCtrl = function($scope, field, flight, fleet){
 		$scope.field = field;
 		$scope.flight = flight;
+		$scope.fleet = fleet;
 		$scope.info = flight[field];
 
+		if (field == 'departureDate') $scope.info = new Date(flight[field]);
+
 		$scope.saveInfo = function(){
-			console.log($scope.plane);
 			flight[field] = $scope.info;
+			flight.departureDate_formatted = moment(flight.departureDate).format('MMMM Do YYYY');
+			for (var j = 0; j < $scope.fleet.length; j++){
+				if ($scope.fleet[j]._id == flight.airplane){
+					flight.airplane_name = $scope.fleet[j].name;
+				}
+			}
 			flights.update($scope.flight)
 				.success(function(response){
 					console.log(response);
@@ -112,6 +120,7 @@ app.controller('MainCtrl', function($scope, fleet, flights, $mdDialog, $mdToast)
 	}
 
 	$scope.deleteAircraft = function(plane, index){
+		//TODO: handle deleting aircraft with flights scheduled
 		var confirm = $mdDialog.confirm()
 			.title("Are you Sure?")
 			.ariaLabel("Delete confirmation")
@@ -149,28 +158,28 @@ app.controller('MainCtrl', function($scope, fleet, flights, $mdDialog, $mdToast)
 
 		if (field == "departureAirport" || field == "arrivalAirport"){
 			$mdDialog.show({
-				locals: {field: field, flight: flight},
+				locals: {field: field, flight: flight, fleet: $scope.fleetList},
 				clickOutsideToClose: true,
 				templateUrl: 'templates/dialogs/dialog-text.ejs',
 				controller: mdFlightDialogCtrl
 			});
 		} else if (field == "airplane"){
 			$mdDialog.show({
-				locals: {field: field, flight: flight},
+				locals: {field: field, flight: flight, fleet: $scope.fleetList},
 				clickOutsideToClose: true,
 				templateUrl: 'templates/dialogs/dialog-select-airplane.ejs',
 				controller: mdFlightDialogCtrl
 			});
 		} else if (field == "departureDate"){
 			$mdDialog.show({
-				locals: {field: field, flight: flight},
+				locals: {field: field, flight: flight, fleet: $scope.fleetList},
 				clickOutsideToClose: true,
 				templateUrl: 'templates/dialogs/dialog-date.ejs',
 				controller: mdFlightDialogCtrl
 			});
 		} else if (field == "price"){
 			$mdDialog.show({
-				locals: {field: field, flight: flight},
+				locals: {field: field, flight: flight, fleet: $scope.fleetList},
 				clickOutsideToClose: true,
 				templateUrl: 'templates/dialogs/dialog-dec.ejs',
 				controller: mdFlightDialogCtrl

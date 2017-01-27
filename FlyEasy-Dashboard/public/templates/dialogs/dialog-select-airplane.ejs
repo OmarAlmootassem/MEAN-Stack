@@ -1,0 +1,21 @@
+<md-dialog aria-label="Edit Info">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2 style="color: white">Edit Info</h2>
+    </div>
+  </md-toolbar>
+
+  <md-dialog-content>
+    <div class="md-dialog-content">
+      <md-input-container md-no-float class="md-block" style="top: -12px;">
+        <md-select ng-model="info" aria-label="Category">
+          <md-option ng-repeat="plane in fleet" ng-value="plane._id">{{plane.name}}</md-option>
+        </md-select>
+      </md-input-container>
+    </div>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+    <md-button ng-click="cancel()">Cancel</md-button>
+    <md-button class='md-primary' ng-click="saveInfo()">Save</md-button>
+  </md-dialog-actions>
+</md-dialog>
