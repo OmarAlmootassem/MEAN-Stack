@@ -3,20 +3,19 @@ var app = angular.module('FlyEasy Dashboard', ['ngMaterial']);
 app.controller('MainCtrl', function($scope, fleet, $mdDialog, $mdToast){
 
 	$scope.newAircraft = {};
+	$scope.newFlight = {};
 	$scope.fleetList = [];
+	$scope.flightList = [];
 
 	fleet.getAll()
 		.success(function(response){
-			// console.log(response);
-			console.log("Init add");
 			for (var i = 0; i < response.length; i++){
 				$scope.fleetList.push(response[i]);
 			}
 		});
 	
 	$scope.addNewAircraft = function(){
-		// console.log($scope.newAircraft);
-		console.log("Adding");
+		console.log("Add Aircraft");
 		fleet.create($scope.newAircraft)
 			.success(function(response){
 				console.log(response);
@@ -94,6 +93,18 @@ app.controller('MainCtrl', function($scope, fleet, $mdDialog, $mdToast){
 				});
 		});
 		 
+	}
+
+	$scope.deleteFlight = function(flight, index){
+		console.log(flight);
+	}
+
+	$scope.editFlight = function(ev, flight, field){
+		console.log(field);
+	}
+
+	$scope.addNewFlight = function(){
+		console.log("Add Flight");
 	}
 });
 
