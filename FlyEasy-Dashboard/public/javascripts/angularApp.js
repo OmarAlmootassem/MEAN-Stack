@@ -120,12 +120,23 @@ app.controller('MainCtrl', function($scope, fleet, flights, $mdDialog, $mdToast)
 	}
 
 	$scope.deleteAircraft = function(plane, index){
-		//TODO: handle deleting aircraft with flights scheduled
-		var confirm = $mdDialog.confirm()
-			.title("Are you Sure?")
-			.ariaLabel("Delete confirmation")
-			.ok("Delete")
-			.cancel("Cancel");
+		var flightsList = [];
+		var flightIndex = [];
+		for (var i = 0; i < $scope.flightList.length; i++){
+			console.log(plane._id + " " + $scope.flightList[i].airplane);
+			if (plane._id == $scope.flightList[i].airplane){
+				flightsList.push($scope.flightList[i]);
+				flightIndex.push(i);
+			} 
+		}
+		console.log(flightsList);
+
+		if (flightsList.length == 0){
+			var confirm = $mdDialog.confirm()
+				.title("Are you Sure?")
+				.ariaLabel("Delete confirmation")
+				.ok("Delete")
+				.cancel("Cancel");
 
 		$mdDialog.show(confirm).then(function(){
 			fleet.remove(plane)
@@ -134,7 +145,31 @@ app.controller('MainCtrl', function($scope, fleet, flights, $mdDialog, $mdToast)
 					$scope.fleetList.splice(index, 1);
 				});
 		});
-		 
+		} else {
+		var confirmFlights = $mdDialog.confirm()
+			.title("Are you Sure? There are " + flightsList.length + " flights for this plane.")
+			.ariaLabel("Delete confirmation")
+			.ok("Delete")
+			.cancel("Cancel");
+
+		$mdDialog.show(confirmFlights).then(function(){
+			for (var i = 0; i < flightsList.length; i++){
+				flights.remove(flightsList[i])
+					.success(function(response){
+						console.log(response);
+						$scope.flightList.splice(flightIndex[i], 1);
+					});
+
+			}
+
+			fleet.remove(plane)
+				.success(function(response){
+					console.log(response);
+					$scope.fleetList.splice(index, 1);
+				});
+
+		});
+		}		 
 	}
 
 	$scope.deleteFlight = function(flight, index){

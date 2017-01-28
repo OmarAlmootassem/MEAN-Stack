@@ -23,134 +23,137 @@
   		<div class="md-toolbar-tools">
 			<h2><span>FlyEasy Dashboard</span></h2>
 			<span flex></span>
-	  		<md-button class="md-raised" aria-label="learn more">Learn More</md-button>
   		</div>  		
   	</md-toolbar>
   	<md-tabs md-border-bottom md-dynamic-height md-center-tabs="true">
   		<md-tab label="Fleet Editor">
-  			<md-content class="md-padding">
-	  			<table class="table" cellspacing="0">
-	  				<thead>
-	  					<th style="width: 20vw; text-align: left;">Aircraft Name</th>
-	  					<th style="width: 15vw; text-align: left;">Category</th>
-	  					<th style="width: 15vw; text-align: left;">Number of Seats</th>
-	  					<th style="width: 15vw; text-align: left;">Price per Hour</th>
-	  					<th style="width: 15vw; text-align: left;">Airport</th>
-	  					<th style="width: 20vw">Action</th>
-	  				</thead>
-	  				<tbody>
-	  					<tr ng-repeat="plane in fleetList" class="data-row">
-	  						<td ng-click="editAircraft($event, plane, 'name')">{{plane.name}}</td>
-	  						<td ng-click="editAircraft($event, plane, 'category')">{{plane.category}}</td>
-	  						<td ng-click="editAircraft($event, plane, 'numSeats')">{{plane.numSeats}}</td>
-	  						<td ng-click="editAircraft($event, plane, 'pricePerHour')">${{plane.pricePerHour}}</td>
-	  						<td ng-click="editAircraft($event, plane, 'airport')">{{plane.airport}}</td>
-	  						<td style="text-align: center;"><md-button class="md-warn" ng-click="deleteAircraft(plane, $index)">Delete</md-button></td>
-	  					</tr>
-	  					<tr>
-	  						<td>
-	  							<md-input-container md-no-float class="md-block">
-						    		<label>Aircraft Name</label>
-						        	<input ng-model="newAircraft.name">
-					        	</md-input-container>
-	  						</td>
-	  						<td>
-	  							<md-input-container md-no-float class="md-block" style="top: -12px;">
-						    		<label>Category</label>
-						        	<md-select ng-model="newAircraft.category" aria-label="Category">
-		        			            <md-option value="Heavy Jet">Heavy Jet</md-option>
-		    							<md-option value="Light Jet">Light Jet</md-option>
-						        	</md-select>
-					        	</md-input-container>
-	  						</td>
-	  						<td>
-	  							<md-input-container md-no-float class="md-block">
-					    			<label>Seats</label>
-					    			<input type="number" min="0" name="seats" ng-model="newAircraft.numSeats">
-					    		</md-input-container>
-	  						</td>
-	  						<td>
-	  							<md-input-container md-no-float class="md-icon-float md-block">
-					    			<label>Price</label>
-					    			<md-icon md-svg-src="images/money.svg"></md-icon>
-					    			<input type="number" min="0" step="0.01" ng-model="newAircraft.pricePerHour" aria-label="dollar">
-					    		</md-input-container>
-	  						</td>
-	  						<td>
-	  							<md-input-container md-no-float class="md-block">
-						    	<label>Airport</label>
-						        	<input ng-model="newAircraft.airport">
-					        	</md-input-container>
-	  						</td>
-	  						<td style="text-align: center;">
-	  							<md-button ng-click="addNewAircraft()" ng-disabled="!newAircraft.name || !newAircraft.category || !newAircraft.numSeats || !newAircraft.pricePerHour || !newAircraft.airport" class="md-raised md-primary">Add</md-button>
-	  						</td>
-	  					</tr>
-	  				</tbody>
-	  			</table>
-  			</md-content>
+	  		<md-card>
+	  			<md-content class="md-padding">
+		  			<table class="table" cellspacing="0">
+		  				<thead>
+		  					<th style="width: 20vw; text-align: left;">Aircraft Name</th>
+		  					<th style="width: 15vw; text-align: left;">Category</th>
+		  					<th style="width: 15vw; text-align: left;">Number of Seats</th>
+		  					<th style="width: 15vw; text-align: left;">Price per Hour</th>
+		  					<th style="width: 15vw; text-align: left;">Airport</th>
+		  					<th style="width: 20vw">Action</th>
+		  				</thead>
+		  				<tbody>
+		  					<tr ng-repeat="plane in fleetList" class="data-row">
+		  						<td ng-click="editAircraft($event, plane, 'name')">{{plane.name}}</td>
+		  						<td ng-click="editAircraft($event, plane, 'category')">{{plane.category}}</td>
+		  						<td ng-click="editAircraft($event, plane, 'numSeats')">{{plane.numSeats}}</td>
+		  						<td ng-click="editAircraft($event, plane, 'pricePerHour')">${{plane.pricePerHour}}</td>
+		  						<td ng-click="editAircraft($event, plane, 'airport')">{{plane.airport}}</td>
+		  						<td style="text-align: center;"><md-button class="md-warn" ng-click="deleteAircraft(plane, $index)">Delete</md-button></td>
+		  					</tr>
+		  					<tr>
+		  						<td>
+		  							<md-input-container md-no-float class="md-block">
+							    		<label>Aircraft Name</label>
+							        	<input ng-model="newAircraft.name">
+						        	</md-input-container>
+		  						</td>
+		  						<td>
+		  							<md-input-container md-no-float class="md-block" style="top: -12px;">
+							    		<label>Category</label>
+							        	<md-select ng-model="newAircraft.category" aria-label="Category">
+			        			            <md-option value="Heavy Jet">Heavy Jet</md-option>
+			    							<md-option value="Light Jet">Light Jet</md-option>
+							        	</md-select>
+						        	</md-input-container>
+		  						</td>
+		  						<td>
+		  							<md-input-container md-no-float class="md-block">
+						    			<label>Seats</label>
+						    			<input type="number" min="0" name="seats" ng-model="newAircraft.numSeats">
+						    		</md-input-container>
+		  						</td>
+		  						<td>
+		  							<md-input-container md-no-float class="md-icon-float md-block">
+						    			<label>Price</label>
+						    			<md-icon md-svg-src="images/money.svg"></md-icon>
+						    			<input type="number" min="0" step="0.01" ng-model="newAircraft.pricePerHour" aria-label="dollar">
+						    		</md-input-container>
+		  						</td>
+		  						<td>
+		  							<md-input-container md-no-float class="md-block">
+							    	<label>Airport</label>
+							        	<input ng-model="newAircraft.airport">
+						        	</md-input-container>
+		  						</td>
+		  						<td style="text-align: center;">
+		  							<md-button class="primary-button-background" ng-click="addNewAircraft()" ng-disabled="!newAircraft.name || !newAircraft.category || !newAircraft.numSeats || !newAircraft.pricePerHour || !newAircraft.airport" class="md-raised md-primary">Add</md-button>
+		  						</td>
+		  					</tr>
+		  				</tbody>
+		  			</table>
+	  			</md-content>
+  			</md-card>
   		</md-tab>
   		<md-tab label="Flight Editor">
-  			<md-content class="md-padding">
-	  			<table class="table" cellspacing="0">
-	  				<thead>
-	  					<th style="width: 20vw; text-align: left;">Aircraft Name</th>
-	  					<th style="width: 15vw; text-align: left;">Departure Date</th>
-	  					<th style="width: 15vw; text-align: left;">Departure Airport</th>
-	  					<th style="width: 15vw; text-align: left;">Arrival Airport</th>
-	  					<th style="width: 15vw; text-align: left;">Price</th>
-	  					<th style="width: 20vw;">Action</th>
-	  				</thead>
-	  				<tbody>
-	  					<tr ng-repeat="flight in flightList" class="data-row">
-	  						<td aria-label="Aircraft Name" ng-click="editFlight($event, flight, 'airplane')">{{flight.airplane_name}}</td>
-	  						<td ng-click="editFlight($event, flight, 'departureDate')">{{flight.departureDate_formatted}}</td>
-	  						<td ng-click="editFlight($event, flight, 'departureAirport')">{{flight.departureAirport}}</td>
-	  						<td ng-click="editFlight($event, flight, 'arrivalAirport')">{{flight.arrivalAirport}}</td>
-	  						<td ng-click="editFlight($event, flight, 'price')">${{flight.price}}</td>
-	  						<td style="text-align: center;"><md-button class="md-warn" ng-click="deleteFlight(flight, $index)">Delete</md-button></td>
-	  					</tr>
-	  					<tr>
-	  						<td>
-								<md-input-container md-no-float class="md-block" style="top: -12px;">
-						    		<label>Airplane Name</label>
-						        	<md-select ng-model="newFlight.airplane" aria-label="Category">
-		        			            <md-option ng-repeat="plane in fleetList" ng-value="plane._id">{{plane.name}}</md-option>
-						        	</md-select>
-					        	</md-input-container>
-	  						</td>
-	  						<td>
-	  							<md-input-container>
-						          <label>Enter date</label>
-						          <md-datepicker md-open-on-focus ng-model="newFlight.departureDate"></md-datepicker>
-						        </md-input-container>
-	  						</td>
-	  						<td>
-	  							<md-input-container md-no-float class="md-block">
-						    		<label>Airport</label>
-						        	<input ng-model="newFlight.departureAirport">
-					        	</md-input-container>
-	  						</td>
-	  						<td>
-	  							<md-input-container md-no-float class="md-block">
-						    		<label>Airport</label>
-						        	<input ng-model="newFlight.arrivalAirport">
-					        	</md-input-container>
-	  						</td>
-	  						<td>
-	  							<md-input-container md-no-float class="md-icon-float md-block" style="width: 100px">
-					    			<label>Price</label>
-					    			<md-icon md-svg-src="images/money.svg"></md-icon>
-					    			<input type="number" min="0" step="0.01" ng-model="newFlight.price" aria-label="dollar">
-					    		</md-input-container>
-	  						</td>
-	  						<td style="text-align: center;">
-	  							<md-button ng-click="addNewFlight()" ng-disabled="!newFlight.airplane || !newFlight.departureDate || !newFlight.departureAirport || !newFlight.arrivalAirport || !newFlight.price" class="md-raised md-primary">Add</md-button>
-	  						</td>
-	  					</tr>
-	  				</tbody>
-	  			</table>
-  			</md-content>
+	  		<md-card>
+	  			<md-content class="md-padding">
+		  			<table class="table" cellspacing="0">
+		  				<thead>
+		  					<th style="width: 20vw; text-align: left;">Aircraft Name</th>
+		  					<th style="width: 15vw; text-align: left;">Departure Date</th>
+		  					<th style="width: 15vw; text-align: left;">Departure Airport</th>
+		  					<th style="width: 15vw; text-align: left;">Arrival Airport</th>
+		  					<th style="width: 15vw; text-align: left;">Price</th>
+		  					<th style="width: 20vw;">Action</th>
+		  				</thead>
+		  				<tbody>
+		  					<tr ng-repeat="flight in flightList" class="data-row">
+		  						<td aria-label="Aircraft Name" ng-click="editFlight($event, flight, 'airplane')">{{flight.airplane_name}}</td>
+		  						<td ng-click="editFlight($event, flight, 'departureDate')">{{flight.departureDate_formatted}}</td>
+		  						<td ng-click="editFlight($event, flight, 'departureAirport')">{{flight.departureAirport}}</td>
+		  						<td ng-click="editFlight($event, flight, 'arrivalAirport')">{{flight.arrivalAirport}}</td>
+		  						<td ng-click="editFlight($event, flight, 'price')">${{flight.price}}</td>
+		  						<td style="text-align: center;"><md-button class="md-warn" ng-click="deleteFlight(flight, $index)">Delete</md-button></td>
+		  					</tr>
+		  					<tr>
+		  						<td>
+									<md-input-container md-no-float class="md-block" style="top: -12px;">
+							    		<label>Airplane Name</label>
+							        	<md-select ng-model="newFlight.airplane" aria-label="Category">
+			        			            <md-option ng-repeat="plane in fleetList" ng-value="plane._id">{{plane.name}}</md-option>
+							        	</md-select>
+						        	</md-input-container>
+		  						</td>
+		  						<td>
+		  							<md-input-container style="top:4px;">
+							          <label>Enter date</label>
+							          <md-datepicker md-open-on-focus ng-model="newFlight.departureDate"></md-datepicker>
+							        </md-input-container>
+		  						</td>
+		  						<td>
+		  							<md-input-container md-no-float class="md-block">
+							    		<label>Airport</label>
+							        	<input ng-model="newFlight.departureAirport">
+						        	</md-input-container>
+		  						</td>
+		  						<td>
+		  							<md-input-container md-no-float class="md-block">
+							    		<label>Airport</label>
+							        	<input ng-model="newFlight.arrivalAirport">
+						        	</md-input-container>
+		  						</td>
+		  						<td>
+		  							<md-input-container md-no-float class="md-icon-float md-block">
+						    			<label>Price</label>
+						    			<md-icon md-svg-src="images/money.svg"></md-icon>
+						    			<input type="number" min="0" step="0.01" ng-model="newFlight.price" aria-label="dollar">
+						    		</md-input-container>
+		  						</td>
+		  						<td style="text-align: center;">
+		  							<md-button class="primary-button-background" ng-click="addNewFlight()" ng-disabled="!newFlight.airplane || !newFlight.departureDate || !newFlight.departureAirport || !newFlight.arrivalAirport || !newFlight.price" class="md-raised md-primary">Add</md-button>
+		  						</td>
+		  					</tr>
+		  				</tbody>
+		  			</table>
+	  			</md-content>
+  			</md-card>
   		</md-tab>
   	</md-tabs>
   </body>

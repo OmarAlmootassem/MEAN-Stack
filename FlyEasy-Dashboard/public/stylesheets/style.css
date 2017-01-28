@@ -11,3 +11,51 @@
 .data-row:hover{
 	background-color: #E0E0E0;
 }
+
+md-tabs .md-tab.md-active {
+	color: #FF003C;
+}
+
+md-input-container.md-input-focused label {
+	color: #FF003C !important;
+}
+
+md-input-container.md-input-focused .md-input {
+	border-color: #FF003C !important;
+}
+
+md-select:focus .md-select-value {
+	border-bottom-color: #FF003C !important;
+}
+
+md-input-container.md-input-focused md-select .md-select-value.md-select-placeholder {
+	color: #FF003C !important;
+}
+
+md-select-menu md-content md-option[selected] {
+	color: #FF003C !important;
+}
+
+.md-button.md-default-theme.md-primary, .md-button.md-primary {
+	color: #FF003C !important;
+}
+
+.md-datepicker-open .md-datepicker-calendar-icon {
+	color: #FF003C !important;
+}
+
+.md-calendar-date.md-calendar-date-today .md-calendar-date-selection-indicator {
+	border-top-color: #FF003C !important;
+	border-bottom-color: #FF003C !important;
+	border-left-color: #FF003C !important;
+	border-right-color: #FF003C !important;
+}
+
+.primary-button {
+	color: #FF003C;
+}
+
+.primary-button-background {
+	background-color: #FF003C;
+	color: white;
+}
