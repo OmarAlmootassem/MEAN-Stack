@@ -9,6 +9,7 @@ router.get('/', function(req, res, next) {
 	res.render('index', { title: 'Express' });
 });
 
+//Gets all entries in /fleet
 router.get('/fleet', function(req, res){
 	Plane.find(function(err, data){
 		if (err) throw err;
@@ -16,6 +17,7 @@ router.get('/fleet', function(req, res){
 	});
 });
 
+//Gets single entry in /fleet using _id
 router.get('/fleet/:id', function(req, res){
 	Plane.findOne({_id: req.params.id}, function(err, data){
 		if (err) throw err;
@@ -23,6 +25,7 @@ router.get('/fleet/:id', function(req, res){
 	});
 });
 
+//Adds a new entry in /fleet
 router.post('/fleet', function(req, res, next){
 	var plane  = new Plane(req.body);
 
@@ -32,12 +35,14 @@ router.post('/fleet', function(req, res, next){
 	});
 });
 
+//Deletes an entry in /fleet using _id
 router.delete('/fleet/:id', function(req, res){
 	Plane.remove({_id: req.params.id}, function(err){
 		res.json({result: err ? 'error' : 'ok'});
 	});
 });
 
+//Updates an entry in /fleet using _id
 router.post('/fleet/:id', function(req, res){
 	Plane.findOne({_id: req.params.id}, function (err, data){
 		var plane = data;
@@ -53,6 +58,7 @@ router.post('/fleet/:id', function(req, res){
 	});
 });
 
+//Gets all entries in /flights
 router.get('/flights', function(req, res){
 	Flight.find(function(err, data){
 		if (err) throw err;
@@ -60,6 +66,7 @@ router.get('/flights', function(req, res){
 	});
 });
 
+//Gets single entry in /flights using _id
 router.get('/flights/:id', function(req, res){
 	Flight.findOne({_id: req.params.id}, function(err, data){
 		if (err) throw err;
@@ -67,6 +74,7 @@ router.get('/flights/:id', function(req, res){
 	});
 });
 
+//Adds a new entry in /flights
 router.post('/flights', function(req, res, next){
 	var flight  = new Flight(req.body);
 
@@ -76,12 +84,14 @@ router.post('/flights', function(req, res, next){
 	});
 });
 
+//Delets an entry in /flights using _id
 router.delete('/flights/:id', function(req, res){
 	Flight.remove({_id: req.params.id}, function(err){
 		res.json({result: err ? 'error' : 'ok'});
 	});
 });
 
+//Updates an entry in /flights using _id
 router.post('/flights/:id', function(req, res){
 	Flight.findOne({_id: req.params.id}, function (err, data){
 		var flight = data;
@@ -94,18 +104,6 @@ router.post('/flights/:id', function(req, res){
 			if (err) throw err;
 			res.json(data);
 		});
-	});
-});
-
-router.param('plane', function(req, res, next, id){
-	var query = Plane.findById(id);
-
-	query.exec(function(err, plane){
-		if (err) return next(err);
-		if (!plane) return next(new Error("Can't find plane"));
-
-		req.plane = plane;
-		return next();
 	});
 });
 
