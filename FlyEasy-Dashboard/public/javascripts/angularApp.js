@@ -28,7 +28,6 @@ app.controller('MainCtrl', function($scope, fleet, flights, $mdDialog, $mdToast)
 		});
 	
 	$scope.addNewAircraft = function(){
-		console.log("Add Aircraft");
 		fleet.create($scope.newAircraft)
 			.success(function(response){
 				console.log(response);
@@ -77,7 +76,6 @@ app.controller('MainCtrl', function($scope, fleet, flights, $mdDialog, $mdToast)
 		$scope.info = plane[field];
 
 		$scope.saveInfo = function(){
-			console.log($scope.plane);
 			plane[field] = $scope.info;
 			fleet.update($scope.plane)
 				.success(function(response){
@@ -123,17 +121,15 @@ app.controller('MainCtrl', function($scope, fleet, flights, $mdDialog, $mdToast)
 		var flightsList = [];
 		var flightIndex = [];
 		for (var i = 0; i < $scope.flightList.length; i++){
-			console.log(plane._id + " " + $scope.flightList[i].airplane);
 			if (plane._id == $scope.flightList[i].airplane){
 				flightsList.push($scope.flightList[i]);
 				flightIndex.push(i);
 			} 
 		}
-		console.log(flightsList);
 
 		if (flightsList.length == 0){
 			var confirm = $mdDialog.confirm()
-				.title("Are you Sure?")
+				.title("Are you sure?")
 				.ariaLabel("Delete confirmation")
 				.ok("Delete")
 				.cancel("Cancel");
@@ -147,7 +143,8 @@ app.controller('MainCtrl', function($scope, fleet, flights, $mdDialog, $mdToast)
 		});
 		} else {
 		var confirmFlights = $mdDialog.confirm()
-			.title("Are you Sure? There are " + flightsList.length + " flights for this plane.")
+			.title("Are you sure? There " + (flightsList.length == 1 ? "is " : "are ") + flightsList.length + (flightsList.length == 1? " flight" : " flights") + " for this plane.")
+			.textContent("Deleting this plane will delete the assigned flights.")
 			.ariaLabel("Delete confirmation")
 			.ok("Delete")
 			.cancel("Cancel");
@@ -174,7 +171,7 @@ app.controller('MainCtrl', function($scope, fleet, flights, $mdDialog, $mdToast)
 
 	$scope.deleteFlight = function(flight, index){
 		var confirm = $mdDialog.confirm()
-			.title("Are you Sure?")
+			.title("Are you sure?")
 			.ariaLabel("Delete confirmation")
 			.ok("Delete")
 			.cancel("Cancel");
@@ -223,7 +220,6 @@ app.controller('MainCtrl', function($scope, fleet, flights, $mdDialog, $mdToast)
 	}
 
 	$scope.addNewFlight = function(){
-		console.log("Add Flight");
 		flights.create($scope.newFlight)
 			.success(function(response){
 				console.log(response);

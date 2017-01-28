@@ -51,6 +51,10 @@ md-select-menu md-content md-option[selected] {
 	border-right-color: #FF003C !important;
 }
 
+md-input-container.md-input-focused md-icon {
+	color: #FF003C !important;
+}
+
 .primary-button {
 	color: #FF003C;
 }
